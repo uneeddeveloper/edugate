@@ -1,5 +1,5 @@
-import React, { ReactNode, ReactElement } from 'react';
-import { AlertCircle } from 'lucide-react';
+import React, { ReactNode, ReactElement } from "react";
+import { AlertCircle } from "lucide-react";
 
 interface Props {
   children: ReactNode;
@@ -21,7 +21,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('App Error:', error, errorInfo);
+    console.error("App Error:", error, errorInfo);
   }
 
   render(): ReactNode {
@@ -36,11 +36,12 @@ export class ErrorBoundary extends React.Component<Props, State> {
               Terjadi Kesalahan
             </h1>
             <p className="text-gray-600 text-center mb-4">
-              Aplikasi mengalami masalah yang tidak terduga. Silakan coba refresh halaman.
+              Aplikasi mengalami masalah yang tidak terduga. Silakan coba
+              refresh halaman.
             </p>
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
               <p className="text-sm font-mono text-red-700 break-words">
-                {this.state.error?.message || 'Kesalahan tidak diketahui'}
+                {this.state.error?.message || "Kesalahan tidak diketahui"}
               </p>
             </div>
             <button
