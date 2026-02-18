@@ -1,0 +1,7 @@
+{
+  "name": "EduGate System",
+  "description": "A One-Gate Education System for managing courses (SIL, Manmut, Metopen), assignments, and forums with role-based access for students and lecturers.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
