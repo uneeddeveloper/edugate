@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { generateStudyHelp } from '../services/geminiService';
 import { Bot, Send, X } from 'lucide-react';
 
 interface AssistantProps {
@@ -21,10 +20,12 @@ export const Assistant: React.FC<AssistantProps> = ({ subjectName }) => {
     setHistory(prev => [...prev, { role: 'user', content: userMsg }]);
     setLoading(true);
 
-    const answer = await generateStudyHelp(subjectName, userMsg);
-    
-    setHistory(prev => [...prev, { role: 'ai', content: answer }]);
-    setLoading(false);
+    // Placeholder response - AI integration disabled
+    setTimeout(() => {
+      const answer = 'Fitur asisten AI sedang tidak tersedia. Silakan hubungi instruktur untuk bantuan.';
+      setHistory(prev => [...prev, { role: 'ai', content: answer }]);
+      setLoading(false);
+    }, 500);
   };
 
   return (

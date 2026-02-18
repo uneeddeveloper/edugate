@@ -1,15 +1,25 @@
 import { GoogleGenAI } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
 
-// Safely initialize, though we rely on environment variable existing
-const ai = new GoogleGenAI({ apiKey });
+// Safely initialize only when needed
+let ai: GoogleGenAI | null = null;
+
+const getAI = () => {
+  if (!ai && apiKey) {
+    ai = new GoogleGenAI({ apiKey });
+  }
+  return ai;
+};
 
 export const generateStudyHelp = async (subject: string, question: string): Promise<string> => {
-  if (!apiKey) return "API Key not configured.";
+  if (!apiKey) return "API Key tidak dikonfigurasi.";
 
   try {
-    const response = await ai.models.generateContent({
+    const aiInstance = getAI();
+    if (!aiInstance) return "Asisten AI tidak dapat diinisialisasi.";
+
+    const response = await aiInstance.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `You are an expert academic tutor for university students. 
       The subject is: ${subject}.
@@ -29,10 +39,13 @@ export const generateStudyHelp = async (subject: string, question: string): Prom
 };
 
 export const summarizeForum = async (posts: string): Promise<string> => {
-    if (!apiKey) return "API Key not configured.";
+    if (!apiKey) return "API Key tidak dikonfigurasi.";
     
     try {
-        const response = await ai.models.generateContent({
+        const aiInstance = getAI();
+        if (!aiInstance) return "Asisten AI tidak dapat diinisialisasi.";
+
+        const response = await aiInstance.models.generateContent({
             model: 'gemini-3-flash-preview',
             contents: `Summarize the following forum discussions into key points (bullet points) in Indonesian.
             
@@ -41,6 +54,7 @@ export const summarizeForum = async (posts: string): Promise<string> => {
         });
         return response.text || "Tidak ada ringkasan tersedia.";
     } catch (error) {
+        console.error("Forum summarization error:", error);
         return "Gagal meringkas forum.";
     }
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ForumPost, User } from '../types';
 import { MessageSquare, Send, Sparkles, User as UserIcon, MoreHorizontal } from 'lucide-react';
 import { MOCK_FORUM_POSTS } from '../constants';
-import { summarizeForum } from '../services/geminiService';
 
 interface ForumProps {
   courseId: string;
@@ -44,13 +43,11 @@ export const Forum: React.FC<ForumProps> = ({ courseId, currentUser }) => {
     if (posts.length === 0) return;
     setIsSummarizing(true);
     
-    const textToSummarize = posts.map(p => 
-        `${p.authorName} (${p.authorRole}): ${p.content} ${p.replies.map(r => `Reply by ${r.authorName}: ${r.content}`).join(' ')}`
-    ).join('\n\n');
-
-    const result = await summarizeForum(textToSummarize);
-    setSummary(result);
-    setIsSummarizing(false);
+    // Placeholder - AI summarization disabled
+    setTimeout(() => {
+      setSummary('Fitur ringkasan AI sedang tidak tersedia.');
+      setIsSummarizing(false);
+    }, 500);
   };
 
   return (
