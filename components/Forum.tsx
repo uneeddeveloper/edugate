@@ -3,7 +3,6 @@ import { ForumPost, User } from "../types";
 import {
   MessageSquare,
   Send,
-  Sparkles,
   User as UserIcon,
   MoreHorizontal,
 } from "lucide-react";
@@ -17,13 +16,10 @@ interface ForumProps {
 export const Forum: React.FC<ForumProps> = ({ courseId, currentUser }) => {
   const [posts, setPosts] = useState<ForumPost[]>([]);
   const [newPostContent, setNewPostContent] = useState("");
-  const [summary, setSummary] = useState<string | null>(null);
-  const [isSummarizing, setIsSummarizing] = useState(false);
 
   useEffect(() => {
     const filtered = MOCK_FORUM_POSTS.filter((p) => p.courseId === courseId);
     setPosts(filtered);
-    setSummary(null);
   }, [courseId]);
 
   const handlePostSubmit = (e: React.FormEvent) => {
@@ -45,48 +41,14 @@ export const Forum: React.FC<ForumProps> = ({ courseId, currentUser }) => {
     setNewPostContent("");
   };
 
-  const handleSummarize = async () => {
-    if (posts.length === 0) return;
-    setIsSummarizing(true);
-
-    // Placeholder - AI summarization disabled
-    setTimeout(() => {
-      setSummary("Fitur ringkasan AI sedang tidak tersedia.");
-      setIsSummarizing(false);
-    }, 500);
-  };
-
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-gray-800">Forum Diskusi</h2>
-          <p className="text-sm text-gray-500">
-            Ruang tanya jawab dan diskusi kelas
-          </p>
-        </div>
-        <button
-          onClick={handleSummarize}
-          disabled={isSummarizing || posts.length === 0}
-          className="flex items-center gap-2 text-xs font-bold bg-white text-purple-600 border border-purple-200 px-4 py-2 rounded-full hover:bg-purple-50 transition-colors disabled:opacity-50 shadow-sm"
-        >
-          <Sparkles size={14} />
-          {isSummarizing ? "Sedang Meringkas..." : "Ringkas AI"}
-        </button>
+      <div>
+        <h2 className="text-xl font-bold text-gray-800">Forum Diskusi</h2>
+        <p className="text-sm text-gray-500">
+          Ruang tanya jawab dan diskusi kelas
+        </p>
       </div>
-
-      {summary && (
-        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 p-6 rounded-2xl animate-in fade-in slide-in-from-top-4 shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mt-2 -mr-2 bg-purple-200 w-20 h-20 rounded-full blur-3xl opacity-50"></div>
-          <h3 className="font-bold text-purple-900 text-sm mb-3 flex items-center gap-2 relative z-10">
-            <Sparkles size={16} className="text-purple-600" /> Ringkasan Diskusi
-            (AI Generated)
-          </h3>
-          <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed relative z-10">
-            {summary}
-          </div>
-        </div>
-      )}
 
       {/* Input New Post */}
       <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">

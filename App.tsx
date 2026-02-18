@@ -4,7 +4,6 @@ import { CourseList } from "./components/CourseList";
 import { AssignmentManager } from "./components/AssignmentManager";
 import { Forum } from "./components/Forum";
 import { IDCard } from "./components/IDCard";
-import { Assistant } from "./components/Assistant";
 import { User, Course, Assignment } from "./types";
 import { MOCK_COURSES, MOCK_ASSIGNMENTS } from "./constants";
 import {
@@ -492,9 +491,6 @@ const App: React.FC = () => {
               ) : (
                 <Forum courseId={selectedCourse.id} currentUser={user} />
               )}
-
-              {/* AI Assistant Widget */}
-              <Assistant subjectName={selectedCourse.name} />
             </div>
           ) : (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 space-y-8">

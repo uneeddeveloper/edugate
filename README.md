@@ -62,7 +62,6 @@ Platform manajemen akademik modern yang dirancang untuk memudahkan mahasiswa dan
 │   ├── AssignmentManager.tsx
 │   ├── CourseList.tsx
 │   ├── Forum.tsx
-│   ├── Assistant.tsx
 │   ├── IDCard.tsx
 │   ├── Login.tsx
 │   └── ErrorBoundary.tsx
