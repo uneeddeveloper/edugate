@@ -13,6 +13,13 @@ export default defineConfig(({ mode }) => {
       outDir: "dist",
       sourcemap: false,
       minify: true,
+      rollupOptions: {
+        output: {
+          chunkFileNames: "assets/[name]-[hash].js",
+          entryFileNames: "assets/[name]-[hash].js",
+          assetFileNames: "assets/[name]-[hash][extname]",
+        },
+      },
     },
     plugins: [react()],
     resolve: {
